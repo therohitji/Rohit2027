@@ -55,12 +55,12 @@ export const SCREENSHOTS = [
   },
   {
     "id": "web-7",
-    "title": "The Bhagavad Gita of One Life, my previous portfolio",
+    "title": "The Bhagavad Gita of One Life, my previous website",
     "tag": "Website",
     "group": "web",
     "order": 7,
-    "url": "assets/rohit/old-portfolio-3.webp",
-    "full": "assets/rohit/old-portfolio-3.webp"
+    "url": "assets/rohit/old-website-3.webp",
+    "full": "assets/rohit/old-website-3.webp"
   },
   {
     "id": "apps-8",

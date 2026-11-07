@@ -1047,7 +1047,7 @@ export const COPY = {
     "heroTitle": [
       "Privacy"
     ],
-    "heroSub": "What this site records while you read it. It is a portfolio, so the answer is short.",
+    "heroSub": "What this site records while you read it. It is a personal website, so the answer is short.",
     "updated": "Last updated 7 November 2026",
     "contactLabel": "Questions",
     "sections": [
