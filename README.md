@@ -9,7 +9,7 @@
   <a href="https://www.rohitswerashi.com"><img src=".github/readme/welcome.jpg" alt="The Welcome page of www.rohitswerashi.com" width="100%"></a>
 </p>
 
-This repository is the code of my current website, [www.rohitswerashi.com](https://www.rohitswerashi.com). It tells what I have built, what went wrong and what I learned, in pages a busy reader can scan. It replaces [rohit-swerashi](https://github.com/therohitji/rohit-swerashi), my earlier site. The site lives in the `rohit-swerashi/` folder and is live. If you only have a minute, read the site, not the code.
+This repository is the code of my current website, [www.rohitswerashi.com](https://www.rohitswerashi.com). It tells what I have built, what went wrong and what I learned, in pages a busy reader can scan. It replaces my earlier site. The site lives in the `rohit-swerashi/` folder and is live. If you only have a minute, read the site, not the code.
 
 ## The problem
 
