@@ -15,5 +15,5 @@ stamp=$(date +%Y%m%d-%H%M%S)
 $SSH "$DEPLOY_HOST" "mkdir -p ~/backups && cd ~/$DEPLOY_PATH && tar czf ~/backups/rohitswerashi-public_html-$stamp.tgz public_html"
 echo "backup on the server: ~/backups/rohitswerashi-public_html-$stamp.tgz"
 
-rsync -az --delete --exclude '.DS_Store' --exclude 'google*.html' -e "$SSH" dist/ "$DEPLOY_HOST:$DEPLOY_PATH/public_html/"
+rsync -az --delete --exclude '.DS_Store' -e "$SSH" dist/ "$DEPLOY_HOST:$DEPLOY_PATH/public_html/"
 echo "uploaded"
