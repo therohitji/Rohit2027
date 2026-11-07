@@ -1,0 +1,17 @@
+node_modules/
+.DS_Store
+.venv/
+__pycache__/
+*.log
+.deploy.env
+
+# Everything below lives in the private backup, not in this public code repo
+reference/
+tree.yaml
+library/
+brand/
+old-website/
+github-profile/
+claude-seo-main/
+open-seo-main/
+README-PRIVATE.md

@@ -1,0 +1,18 @@
+# Rohit Swerashi
+
+> Rohit Swerashi is the founder and CEO of GeniOS, software that thinks for your company. From Varanasi, working between New Delhi and San Francisco, he has founded six startups since 2018.
+
+## Pages
+- [Experience](https://www.rohitswerashi.com/experience): the companies and products, with the story behind each
+- [Expertise](https://www.rohitswerashi.com/expertise): the problems he faced and how he solved them
+- [Recognition](https://www.rohitswerashi.com/recognition): the full list, year by year
+- [AI](https://www.rohitswerashi.com/ai): eight AI builds, and why memory is not the product
+- [Profile](https://www.rohitswerashi.com/about): the journey and what he believes
+- [Facts](https://www.rohitswerashi.com/facts): one plain page with the key facts
+- [Contact](https://www.rohitswerashi.com/contact)
+
+## Companies
+- [GeniOS](https://www.rohitswerashi.com/experience/genios): the autonomous company
+- [Hustlers Fellowship](https://www.rohitswerashi.com/experience/hustlers-fellowship): build-first AI courses
+- [The Moronss](https://www.rohitswerashi.com/experience/the-moronss): AI mentorship
+- [Homians](https://www.rohitswerashi.com/experience/homians): home food from a PG room
