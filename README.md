@@ -1,16 +1,61 @@
-# Rohit2027
+<h1 align="center">Rohit Swerashi</h1>
 
-Everything behind [www.rohitswerashi.com](https://www.rohitswerashi.com), the personal website of Rohit Swerashi.
+<p align="center">
+  <strong>I build companies, and software that thinks.</strong><br>
+  Founder and CEO of <a href="https://thegenios.com">GeniOS</a>. Six startups since 2018, from Varanasi to San Francisco.
+</p>
 
-The site is live on Hostinger. This repository is the source. Changing a file here does not change the website until it is published, see [Publish to the website](#publish-to-the-website).
+<p align="center">
+  <a href="https://www.rohitswerashi.com"><strong>Visit www.rohitswerashi.com</strong></a>
+</p>
 
-## What is in this repository
+<p align="center">
+  <a href="https://www.rohitswerashi.com"><img src=".github/readme/welcome.jpg" alt="The Welcome page of www.rohitswerashi.com" width="100%"></a>
+</p>
 
-Only the code of the website, in `rohit-swerashi/`. Original photos, logos and working files are kept elsewhere.
+This repository is the code behind my personal website. The site tells the story of what I have built, what went wrong and what I learned. If you only have a minute, [read the site](https://www.rohitswerashi.com), not the code.
 
-## Run it on your laptop
+## What you will find on the site
 
-You need Node.js 20 or newer.
+| Page | What is there |
+|---|---|
+| [Welcome](https://www.rohitswerashi.com/) | Who I am, the numbers, and the path from Varanasi to San Francisco. |
+| [Experience](https://www.rohitswerashi.com/experience) | GeniOS, Hustlers Fellowship, The Moronss, Homians, Mr. Elite and Smart ATS Builder. What shipped, and the story behind each. |
+| [Expertise](https://www.rohitswerashi.com/expertise) | The problems I faced in product, design, sales, people and AI, and how I solved each one. |
+| [Recognition](https://www.rohitswerashi.com/recognition) | Shark Tank India, Stanford ASES, Harvard HPAIR, Founders, Inc., NSRCEL IIM Bangalore and more, year by year. |
+| [AI](https://www.rohitswerashi.com/ai) | How I built eight AI products, why memory is not the product, and how I see the autonomous company. |
+| [Profile](https://www.rohitswerashi.com/about) | My beliefs, my timeline and a wall of moments from stages, classrooms and pitch rooms. |
+| [Contact](https://www.rohitswerashi.com/contact) | Email, LinkedIn, X and YouTube, or book a 30 minute call. |
+
+## A few things worth noticing
+
+**A walk through the journey.** A small figure walks along a street at the top of the Welcome page, past the places and programs along the way. At the bottom of every page, a robot walks through a tech city, past the tools I use every day.
+
+<img src=".github/readme/footer-city.jpg" alt="A robot walking through a tech city, past the tools Rohit uses" width="100%">
+
+**Moments, as they happened.** 33 photos, each tagged with the event and the year.
+
+<img src=".github/readme/moments.jpg" alt="The wall of photos on the Profile page, each tagged with an event and a year" width="100%">
+
+**Made for the phone too.** Every page has its own phone layout, in both dark and light themes.
+
+<p align="center">
+  <img src=".github/readme/phone.jpg" alt="The Welcome page on a phone" width="300">
+</p>
+
+## About me
+
+- **GeniOS**, founder and CEO, 2025 to present. Software that thinks for your company. Part of Founders, Inc., NSRCEL IIMB, IIITD Innovation & Incubation, NVIDIA Inception and Microsoft for Startups.
+- **The Moronss**, founder and product lead, 2022 to 2025. An AI mentor for students, with 10,000+ students mentored. Shark Tank India S4 audition finalist.
+- **Homians**, founder and CEO, 2021 to 2023. $40k revenue with zero funding, 100+ jobs, and 50+ house moms earning every month. Shark Tank India S2 audition finalist.
+- **Hustlers Fellowship**, founder. Build-first AI courses.
+- **Delegate** at Stanford ASES and, three times, at Harvard HPAIR.
+
+## How it is built
+
+React and Vite, with GSAP and Lenis for motion. Every page is written out as its own HTML file so search engines can read it without running JavaScript. Automated browser checks open each page at laptop and phone sizes before a release.
+
+To run it yourself:
 
 ```bash
 cd rohit-swerashi
@@ -18,147 +63,8 @@ npm install
 npm run dev
 ```
 
-Open http://127.0.0.1:5188. Saved changes appear straight away.
+## Say hello
 
-To see the finished build:
+I am always open for a conversation over a good chai.
 
-```bash
-npm run build
-npm run preview
-```
-
-Open http://127.0.0.1:5189.
-
-`npm run build` writes a separate HTML file for each page so search engines can read them. It uses Playwright, so install it once if the build asks for it: `npx playwright install chromium`.
-
-## Change something
-
-All paths are inside `rohit-swerashi/`.
-
-### Words and numbers
-
-| What you want to change | File |
-|---|---|
-| Name, email, location, social links, Welcome page numbers | `src/content/site.js` |
-| The companies and projects | `src/content/projects.js`, `src/content/work.js` |
-| The long stories on each Experience page | `src/content/stories.js` |
-| The Profile page text | `src/content/era.js` |
-| The Welcome page whiteboards | `src/content/whiteboard.js` |
-| AI tools and the names in the footer animation (`WALK_TOOLS`) | `src/content/ai.js` |
-| Other short text | `src/content/copy.js` |
-| Page titles and Google descriptions | `src/content/seo.js` |
-
-### Moments wall on the Profile page
-
-The list is in `src/content/moments.js`. Each photo looks like this:
-
-```js
-{
-  "src": "/assets/moments/keynote-niet-2023.webp",
-  "t": "Keynote @NIET",
-  "y": "2023",
-  "c": 3,
-  "r": 4,
-  "pos": "50% 20%"
-}
-```
-
-| Field | Meaning |
-|---|---|
-| `src` | The image, inside `public/assets/moments/`. Use WebP, up to 1400 px on the long side. |
-| `t`, `y` | The tag shown on the photo: name and year. |
-| `c` | Width, out of 12 columns. `6` is big, `3` or `4` is small. |
-| `r` | Height in rows. |
-| `pos` | Which part of the photo stays in frame. `50% 20%` keeps the upper part, which suits faces. |
-
-Photos appear in list order. Move an entry up or down to move the photo. Each row should add up to 12 columns or the wall will show a gap.
-
-### Look and feel
-
-| What you want to change | File |
-|---|---|
-| Colours, sizes, phone layout | `src/styles/theme.css`. It loads last, so its rules win. |
-| Top menu, including the phone menu | `src/components/SiteNav.jsx` |
-| Footer | `src/components/Footer.jsx` |
-| Footer animation: robot, city, tool boxes | `src/components/BoardWalk.jsx` |
-| Road animation at the top of the Welcome page | `src/pages/home/Street.jsx` |
-| Pages and their sections | `src/pages/` |
-| Images | `public/assets/` |
-
-When you replace an image, give it a new file name. Browsers keep old images, and a new name makes everyone see the new one.
-
-## Publish to the website
-
-Publishing runs from a laptop that has the server details.
-
-Set it up once:
-
-1. In `rohit-swerashi/`, copy `.deploy.env.example` to `.deploy.env`.
-2. Fill in the Hostinger details. This file never goes to GitHub.
-3. Put the SSH key at the path you gave in `DEPLOY_KEY`.
-
-Then, each time:
-
-```bash
-cd rohit-swerashi
-git pull
-npm install
-npm run deploy
-```
-
-This builds the site, saves a backup of the current site on the server in `~/backups`, and uploads the new version. It takes about a minute. If a page looks old afterwards, close the tab and open it again.
-
-### Go back to an earlier version
-
-Backups are on the server in `~/backups`, named by date and time. To restore one, connect to the server and run:
-
-```bash
-cd ~/domains/rohitswerashi.com
-tar xzf ~/backups/rohitswerashi-public_html-YYYYMMDD-HHMMSS.tgz
-```
-
-## Save your changes to GitHub
-
-```bash
-git add -A
-git commit -m "Say what changed"
-git push
-```
-
-If you edit a file on the GitHub website, run `git pull` on the laptop before you publish.
-
-To save everything as a zip, use **Code > Download ZIP** at the top of this page.
-
-## Check before publishing
-
-```bash
-cd rohit-swerashi
-npm run build && npm run preview
-node qa/run.cjs http://127.0.0.1:5189
-```
-
-The second command takes about eight minutes. It opens every page on laptop and phone sizes and checks text, buttons, links and overflow. It prints each failure and a total at the end.
-
-To check what search engines receive, run this after publishing:
-
-```bash
-node qa/seo.mjs https://www.rohitswerashi.com
-```
-
-On the live site, the browser check reports three failures for `/does-not-exist`. That page is meant to return a 404, so those three are expected.
-
-## After a big update
-
-Tell search engines that pages changed:
-
-```bash
-bash scripts/indexnow.sh
-```
-
-## Keep this repository clean
-
-This repository is public, so anyone can read every file and its history.
-
-- Never commit passwords, API keys, SSH keys or server addresses. `.deploy.env` is ignored for this reason.
-- Do not commit customer data or private company numbers.
-- Original photos, research notes and old backups are not part of this repository.
+[Website](https://www.rohitswerashi.com) · [LinkedIn](https://www.linkedin.com/in/rohitswerashi) · [X](https://x.com/rohit_swerashi) · [YouTube](https://www.youtube.com/@TheRohitSwerashi) · [GeniOS](https://thegenios.com) · [Book a call](https://cal.com/rohitswerashi/genios) · rohitswerashi@thegenios.com
