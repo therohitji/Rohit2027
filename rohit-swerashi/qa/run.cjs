@@ -10,10 +10,12 @@ const open = async (ctx, route) => {
   p.problems = [];
   p.on("pageerror", (e) => p.problems.push("js: " + e.message));
   p.on("request", (r) => { const u = new URL(r.url()); if (BASE.includes("127.0.0.1") && u.hostname !== "127.0.0.1" && !/fontshare\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager|lissoss/.test(u.hostname)) p.problems.push("external " + r.url()); });
-  p.on("response", (r) => { if (r.status() >= 400 && !/favicon/.test(r.url())) p.problems.push(r.status() + " " + r.url()); });
+  // The not-found page is meant to answer 404, so that one answer is checked on its own below, not counted as an error.
+  p.on("response", (r) => { if (r.status() >= 400 && !/favicon/.test(r.url()) && !(route === "/does-not-exist" && r.status() === 404 && r.request().isNavigationRequest())) p.problems.push(r.status() + " " + r.url()); });
   p.on("requestfailed", (r) => { const e = r.failure()?.errorText || ""; if (!/ERR_ABORTED/.test(e)) p.problems.push("failed " + r.url() + " " + e); });
   await p.route(/googletagmanager|google-analytics|lissoss\.com|posthog/, (x) => x.abort("aborted"));
-  await p.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 45000 });
+  const res = await p.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 45000 });
+  p.docStatus = res ? res.status() : 0;
   await p.waitForTimeout(1800);
   return p;
 };
@@ -29,6 +31,7 @@ const open = async (ctx, route) => {
       const m = await p.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src), text: document.body.innerText.length }));
       const notFound = r === "/does-not-exist";
       check(`${vp} ${r} renders`, m.text > (notFound ? 40 : 200), `${m.text} chars`);
+      if (notFound && !BASE.includes("127.0.0.1")) check(`${vp} ${r} answers 404, so search engines drop it`, p.docStatus === 404, `status ${p.docStatus}`);
       check(`${vp} ${r} no overflow`, m.sw <= m.cw + 1, `${m.sw}/${m.cw}`);
       check(`${vp} ${r} no broken images`, m.broken.length === 0, m.broken.slice(0, 2).join(" "));
       const round = await p.evaluate(() => [...document.querySelectorAll('button, .sv-btn, [role="button"], [role="tab"], .rs-tabs, .rs-x-rail a, .rs-proof-film .play')].filter((e) => { const s = getComputedStyle(e); return /%/.test(s.borderTopLeftRadius) || parseFloat(s.borderTopLeftRadius) > 5; }).map((e) => e.tagName + "." + e.className));
