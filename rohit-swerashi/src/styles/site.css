@@ -1108,7 +1108,7 @@ button:hover > .sv-ar--sw,
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 40px;
 }
-.sv-foot-grid h4 {
+.sv-foot-grid h3 {
   font-family: var(--sv-mono);
   font-size: var(--sv-fs-micro);
   letter-spacing: 0.18em;

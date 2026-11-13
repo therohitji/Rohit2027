@@ -4,7 +4,8 @@ import React from "react";
 
 const HOLD = 6500;
 const TOTAL = 16;
-const LINKEDIN = "https://www.linkedin.com/in/rohitswerashi/details/recommendations/";
+const LINKEDIN =
+  "https://www.linkedin.com/in/rohitswerashi/details/recommendations/";
 
 const initials = (name) =>
   name
@@ -24,8 +25,12 @@ export function Marquee({ title, sub, items }) {
   const row = React.useRef(null);
   React.useEffect(() => {
     const el = row.current;
-    const b = el?.children[on];
-    if (b && el.scrollWidth > el.clientWidth) el.scrollTo({ left: b.offsetLeft - el.offsetLeft - 20, behavior: "smooth" });
+    const b = el?.querySelectorAll('[role="tab"]')[on];
+    if (b && el.scrollWidth > el.clientWidth)
+      el.scrollTo({
+        left: b.offsetLeft - el.offsetLeft - 20,
+        behavior: "smooth",
+      });
   }, [on]);
   const q = items[on];
   return (
@@ -49,34 +54,47 @@ export function Marquee({ title, sub, items }) {
               <small>{q.k}</small>
             </span>
           </figcaption>
-          {!held && <i className="rs-mq-run" style={{ "--hold": `${HOLD}ms` }} aria-hidden="true" />}
+          {!held && (
+            <i
+              className="rs-mq-run"
+              style={{ "--hold": `${HOLD}ms` }}
+              aria-hidden="true"
+            />
+          )}
         </figure>
-        <div className="rs-mq-people" role="tablist" aria-label="Who said it" ref={row}>
-          {items.map((p, i) => (
-            <button
-              key={p.t}
-              type="button"
-              role="tab"
-              aria-selected={i === on}
-              className={i === on ? "is-on" : ""}
-              onClick={() => {
-                setHeld(true);
-                setOn(i);
-              }}
-            >
-              <span className="rs-mq-who">
-                <span className="rs-mq-av" aria-hidden="true">
-                  {initials(p.t)}
+        <div className="rs-mq-people" ref={row}>
+          <div className="rs-mq-tabs" role="tablist" aria-label="Who said it">
+            {items.map((p, i) => (
+              <button
+                key={p.t}
+                type="button"
+                role="tab"
+                aria-selected={i === on}
+                className={i === on ? "is-on" : ""}
+                onClick={() => {
+                  setHeld(true);
+                  setOn(i);
+                }}
+              >
+                <span className="rs-mq-who">
+                  <span className="rs-mq-av" aria-hidden="true">
+                    {initials(p.t)}
+                  </span>
+                  <span>
+                    <b>{p.t}</b>
+                    <small>{p.k}</small>
+                  </span>
                 </span>
-                <span>
-                  <b>{p.t}</b>
-                  <small>{p.k}</small>
-                </span>
-              </span>
-              <span className="rs-mq-peek">{p.d}</span>
-            </button>
-          ))}
-          <a className="rs-mq-more" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                <span className="rs-mq-peek">{p.d}</span>
+              </button>
+            ))}
+          </div>
+          <a
+            className="rs-mq-more"
+            href={LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <b>+{TOTAL - items.length} more</b>
             <small>On LinkedIn</small>
           </a>

@@ -2540,7 +2540,7 @@ html.lenis body {
   justify-content: space-between;
   gap: 20px 28px;
 }
-.rs-foot .sv-foot-grid h4 {
+.rs-foot .sv-foot-grid h3 {
   margin-bottom: 10px;
   font-family: inherit;
   font-size: 11px;
@@ -2674,7 +2674,7 @@ html.lenis body {
 }
 
 /* Footer: readable, still one tidy row */
-.rs-foot .sv-foot-grid h4 {
+.rs-foot .sv-foot-grid h3 {
   margin-bottom: 12px;
   font-size: 14px;
 }
@@ -2852,7 +2852,7 @@ html.lenis body {
   background: radial-gradient(90% 80% at 90% 0%, color-mix(in srgb, var(--sv-accent) 34%, transparent), transparent 75%), var(--sv-paper);
   border-color: var(--sv-accent-2);
 }
-.rs-sc-card h4 {
+.rs-sc-card h3 {
   margin: 0;
   font-size: 18px;
   font-weight: 500;
@@ -6072,5 +6072,113 @@ html.lenis body {
   .rs-walk :is(.wk-packet, .wk-drone) {
     display: none;
   }
+}
+
+/* Signature: written stroke by stroke, then the exact ink settles over it */
+.rs-sign {
+  --rs-sig-1: #6e1f24;
+  --rs-sig-2: #0b0b0c;
+  --rs-sig-3: #16233f;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.site-root.is-dark .rs-sign {
+  --rs-sig-1: #f1d6b6;
+  --rs-sig-2: #e0b896;
+  --rs-sig-3: #c99a76;
+}
+.rs-sign .s1 {
+  stop-color: var(--rs-sig-1);
+}
+.rs-sign .s2 {
+  stop-color: var(--rs-sig-2);
+}
+.rs-sign .s3 {
+  stop-color: var(--rs-sig-3);
+}
+.rs-sign .ink {
+  opacity: 0;
+}
+.rs-sign .dot {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.rs-sign.is-playing .pen path {
+  animation: rs-sign-pen calc(var(--d) / var(--sig-speed) * 1s) cubic-bezier(0.45, 0.05, 0.4, 1) calc(var(--t) / var(--sig-speed) * 1s) forwards;
+}
+.rs-sign.is-playing .ink {
+  animation: rs-sign-ink 0.45s ease calc(var(--sig-total) / var(--sig-speed) * 1s) forwards;
+}
+.rs-sign.is-playing .dot {
+  animation: rs-sign-dot 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) calc(var(--t) / var(--sig-speed) * 1s) forwards;
+}
+@keyframes rs-sign-pen {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rs-sign-ink {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rs-sign-dot {
+  to {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-sign .pen path {
+    stroke-dashoffset: 0;
+  }
+  .rs-sign .ink {
+    opacity: 1;
+  }
+  .rs-sign .dot {
+    transform: none;
+  }
+  .rs-sign * {
+    animation: none !important;
+  }
+}
+
+/* The hero is signed at the end of the introduction, on the right, above About me */
+.rs-hero-act {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 16px;
+}
+.rs-hero-act .sv-hero-cta {
+  margin-top: 20px;
+}
+.rs-hero-sign {
+  width: 200px;
+}
+@media (max-width: 960px) {
+  .rs-hero-act {
+    align-self: flex-start;
+  }
+  .rs-hero-sign {
+    width: 170px;
+  }
+}
+/* Buttons stack full width on phones, so the signature sits on the right above them */
+@media (max-width: 760px) {
+  .rs-hero-act {
+    align-self: stretch;
+  }
+  .rs-hero-act .sv-hero-cta {
+    align-self: stretch;
+    margin-top: 18px;
+  }
+}
+
+/* The quote buttons are grouped as tabs without changing the row */
+.rs-mq-tabs {
+  display: contents;
 }
 

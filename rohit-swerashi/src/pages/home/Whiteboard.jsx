@@ -22,7 +22,7 @@ function Card({ node, cls, innerRef }) {
       )}
       <div className="rs-sc-card">
         {node.label && <small>{node.label}</small>}
-        {node.title && <h4>{node.title}</h4>}
+        {node.title && <h3>{node.title}</h3>}
         {node.role && <em className="r">{node.role}</em>}
         {node.body && <p className="r">{node.body}</p>}
         {node.rows && (

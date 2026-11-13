@@ -32,7 +32,7 @@ export function Footer() {
           <div className="rs-foot-top">
             <div className="sv-foot-grid">
               <div>
-              <h4>Socials</h4>
+              <h3>Socials</h3>
               {socials
                 .filter((i) => SOCIALS.includes(i.label))
                 .map((i) => (
@@ -42,7 +42,7 @@ export function Footer() {
                 ))}
             </div>
             <div>
-              <h4>GeniOS</h4>
+              <h3>GeniOS</h3>
               {GENIOS.map(([label, url]) => (
                 <a key={label} href={url} target="_blank" rel="noopener noreferrer">
                   {label} <Arrow />
@@ -50,7 +50,7 @@ export function Footer() {
               ))}
             </div>
             <div>
-              <h4>Reach me</h4>
+              <h3>Reach me</h3>
               <a className="sv-foot-mail" href={`mailto:${email}`}>
                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                   <rect x="3" y="5" width="18" height="14" rx="2" />
