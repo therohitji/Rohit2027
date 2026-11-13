@@ -2329,12 +2329,6 @@ html.lenis body {
 .rs-sig {
   color: var(--sv-ink-2);
 }
-.rs-sig canvas {
-  display: block;
-  width: 100%;
-  color: inherit;
-  font-family: var(--sv-mono);
-}
 .site-root.is-dark .rs-foot.sv-footer {
   background: #0b0b0c;
 }
@@ -6072,5 +6066,87 @@ html.lenis body {
   .rs-walk :is(.wk-packet, .wk-drone) {
     display: none;
   }
+}
+
+/* Signature: written stroke by stroke, then the exact ink settles over it */
+.rs-sign {
+  --rs-sig-1: #6e1f24;
+  --rs-sig-2: #0b0b0c;
+  --rs-sig-3: #16233f;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.site-root.is-dark .rs-sign,
+.sv-curtain.is-dark .rs-sign {
+  --rs-sig-1: #f1d6b6;
+  --rs-sig-2: #e0b896;
+  --rs-sig-3: #c99a76;
+}
+.rs-sign .s1 {
+  stop-color: var(--rs-sig-1);
+}
+.rs-sign .s2 {
+  stop-color: var(--rs-sig-2);
+}
+.rs-sign .s3 {
+  stop-color: var(--rs-sig-3);
+}
+.rs-sign .ink {
+  opacity: 0;
+}
+.rs-sign .dot {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.rs-sign.is-playing .pen path {
+  animation: rs-sign-pen calc(var(--d) / var(--sig-speed) * 1s) cubic-bezier(0.45, 0.05, 0.4, 1) calc(var(--t) / var(--sig-speed) * 1s) forwards;
+}
+.rs-sign.is-playing .ink {
+  animation: rs-sign-ink 0.45s ease calc(var(--sig-total) / var(--sig-speed) * 1s) forwards;
+}
+.rs-sign.is-playing .dot {
+  animation: rs-sign-dot 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) calc(var(--t) / var(--sig-speed) * 1s) forwards;
+}
+@keyframes rs-sign-pen {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rs-sign-ink {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rs-sign-dot {
+  to {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-sign .pen path {
+    stroke-dashoffset: 0;
+  }
+  .rs-sign .ink {
+    opacity: 1;
+  }
+  .rs-sign .dot {
+    transform: none;
+  }
+  .rs-sign * {
+    animation: none !important;
+  }
+}
+.site-root .rs-sig {
+  padding-block: clamp(20px, 4vh, 44px) clamp(18px, 3vh, 32px);
+}
+.rs-sig .rs-sign {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.sv-curtain-sign {
+  width: min(84vw, 760px);
 }
 

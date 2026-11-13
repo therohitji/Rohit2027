@@ -133,7 +133,7 @@ const open = async (ctx, route) => {
     check("expertise: rail marks the chapter", (await x.locator(".rs-x-rail a.is-on").innerText()) === "Rejected");
     check("expertise: 521 squares in the rejection wall", (await x.locator(".rs-dots i").count()) === 521);
     await x.close();
-    for (const [route, sel, n, label] of [["/about", ".rs-line-item", 6, "profile: six startups on the timeline"], ["/about", ".rs-belief", 6, "profile: six beliefs"], ["/recognition", ".rs-year", 6, "recognition: six year blocks"], ["/recognition", ".rs-quote-lead, .rs-quote", 7, "recognition: seven testimonials"], ["/ai", ".rs-phase", 3, "ai: three workflow phases"], ["/", ".rs-write", 5, "home: five writing cards"], ["/", ".rs-hero .sv-street", 1, "home: walking street in the hero"], ["/", "#focus", 1, "home: focus tracks"], ["/", "#tools", 1, "home: AI tools"], ["/", ".rs-stat", 4, "home: four numbers, counted once"], ["/", ".sv-chart-sec, #profile, .sv-mosaic", 0, "home: the repeated sections stay out"], ["/", "#contact .rs-wb", 1, "home: whiteboard"], ["/", ".rs-globe canvas", 1, "home: globe"], ["/", ".rs-proof-side li", 12, "home: twelve proof names"], ["/", ".rs-j-stop", 6, "home: six journey stops"], ["/", ".rs-rib-tiles img", 18, "home: image ribbon"], ["/", ".rs-cube, .rs-word, .rs-tun, .rs-blk", 0, "home: the reverted cube and tunnel stay out"], ["/expertise", ".rs-dotcube", 1, "expertise: dot cube"]]) {
+    for (const [route, sel, n, label] of [["/about", ".rs-line-item", 6, "profile: six startups on the timeline"], ["/about", ".rs-belief", 6, "profile: six beliefs"], ["/recognition", ".rs-year", 6, "recognition: six year blocks"], ["/recognition", ".rs-quote-lead, .rs-quote", 7, "recognition: seven testimonials"], ["/ai", ".rs-phase", 3, "ai: three workflow phases"], ["/", ".rs-write", 5, "home: five writing cards"], ["/", ".rs-hero .sv-street", 1, "home: walking street in the hero"], ["/", "#focus", 1, "home: focus tracks"], ["/", "#tools", 1, "home: AI tools"], ["/", ".rs-stat", 4, "home: four numbers, counted once"], ["/", ".sv-chart-sec, #profile, .sv-mosaic", 0, "home: the repeated sections stay out"], ["/", "#contact .rs-wb", 1, "home: whiteboard"], ["/", ".rs-globe canvas", 1, "home: globe"], ["/", ".rs-proof-side li", 12, "home: twelve proof names"], ["/", ".rs-j-stop", 6, "home: six journey stops"], ["/", ".rs-rib-tiles img", 36, "home: image ribbon, 18 photos shown twice for the loop"], ["/", ".rs-cube, .rs-word, .rs-tun, .rs-blk", 0, "home: the reverted cube and tunnel stay out"], ["/expertise", ".rs-dotcube", 1, "expertise: dot cube"]]) {
       const y = await open(ctx, route);
       check(label, (await y.locator(sel).count()) === n);
       await y.close();
@@ -188,15 +188,19 @@ const open = async (ctx, route) => {
     const fgm = await fg.evaluate(() => {
       const f = document.querySelector("footer.rs-foot").getBoundingClientRect();
       const wrap = document.querySelector("footer.rs-foot > .sv-wrap").getBoundingClientRect();
-      const c = document.querySelector(".rs-sig canvas").getBoundingClientRect();
-      const cv = document.querySelector(".rs-sig canvas");
-      const px = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-      let ink = 0;
-      for (let i = 3; i < px.length; i += 4) if (px[i] > 60) ink++;
-      return { footer: Math.round(f.height), vh: innerHeight, logo: Math.round(c.width), wrap: Math.round(wrap.width), ratio: +(c.width / c.height).toFixed(2), ink: ink / (cv.width * cv.height), pills: document.querySelectorAll(".rs-foot-cta a").length };
+      const s = document.querySelector(".rs-sig svg").getBoundingClientRect();
+      return { footer: Math.round(f.height), vh: innerHeight, sig: Math.round(s.width), wrap: Math.round(wrap.width), pills: document.querySelectorAll(".rs-foot-cta a").length, strokes: document.querySelectorAll(".rs-sig .pen path").length };
     });
     check("footer: fits one screen, three actions", fgm.footer <= fgm.vh && fgm.pills === 3, JSON.stringify(fgm));
-    check("footer: logo is wide and low, past the content width", fgm.logo >= fgm.wrap * 0.98 && fgm.ratio >= 4.5 && fgm.logo / fgm.ratio <= 330, JSON.stringify(fgm));
+    const signed = await fg.waitForFunction(() => getComputedStyle(document.querySelector(".rs-sig .ink")).opacity === "1", null, { timeout: 7000 }).then(() => true, () => false);
+    check("footer: the signature writes itself and ends signed", signed && fgm.strokes > 15 && fgm.sig >= fgm.wrap * 0.7, JSON.stringify(fgm));
+    const bc = await b.newContext({ viewport: { width: 1440, height: 900 } });
+    const bp = await bc.newPage(); await bp.goto(BASE + "/", { waitUntil: "domcontentloaded" }); await bp.waitForTimeout(900);
+    const boot = await bp.evaluate(() => ({ sign: document.querySelectorAll(".sv-curtain .rs-sign.is-playing").length, on: document.querySelector(".sv-curtain").classList.contains("is-on") }));
+    await bp.waitForTimeout(3600);
+    const after = await bp.evaluate(() => ({ on: document.querySelector(".sv-curtain").classList.contains("is-on"), y: document.documentElement.style.overflow }));
+    check("first visit: opens on the signature, then lifts", boot.sign === 1 && boot.on && !after.on && after.y === "", JSON.stringify([boot, after]));
+    await bc.close();
     const rc = await b.newContext({ viewport: { width: 1440, height: 620 } });
     const rp = await open(rc, "/expertise");
     const walkY = await rp.evaluate(() => Math.round(document.querySelector(".rs-walk").getBoundingClientRect().top + scrollY));
@@ -205,7 +209,6 @@ const open = async (ctx, route) => {
     const railHit = await rp.evaluate(() => { const r = document.querySelector(".rs-x-rail").getBoundingClientRect(), w = document.querySelector(".rs-walk").getBoundingClientRect(), e = document.elementFromPoint(120, Math.max(r.top, w.top) + 6); return { railTop: Math.round(r.top), walkTop: Math.round(w.top), onRail: !!(e && e.closest(".rs-x-rail")), onWalk: !!(e && e.closest(".rs-walk")) }; });
     check("footer: the robot band slides over the expertise rail", railHit.walkTop <= 40 && !railHit.onRail && railHit.onWalk, JSON.stringify(railHit));
     await rc.close();
-    check("footer: the signature is drawn", fgm.ink > 0.02, `${(fgm.ink * 100).toFixed(1)}% of the canvas`);
     await fg.close();
     const wb = await open(ctx, "/");
     await wb.locator(".rs-wb").scrollIntoViewIfNeeded();

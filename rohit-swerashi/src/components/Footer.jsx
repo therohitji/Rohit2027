@@ -1,5 +1,5 @@
 import { BoardWalk } from "./BoardWalk";
-import { SignatureAscii } from "./SignatureAscii";
+import { SignOnView } from "./Signature";
 import { WALK_TOOLS } from "../content/ai";
 import { SITE } from "../content/site";
 import { Arrow } from "./ui";
@@ -84,7 +84,7 @@ export function Footer() {
             </span>
           </div>
         </div>
-        <SignatureAscii />
+        <SignOnView className="rs-sig" />
       </footer>
     </>
   );
