@@ -1,6 +1,4 @@
 import { PROJECTS } from "../content/projects";
-import { SIG_TOTAL } from "../content/signature";
-import { Signature } from "./Signature";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -24,12 +22,9 @@ const Et = 260;
 
 const xt = 340;
 
-// The first visit opens on the signature being written, so the curtain waits for the pen.
-const BOOT_SPEED = 1.35;
+const me = 1100;
 
-const me = Math.round((SIG_TOTAL / BOOT_SPEED) * 1000) + 750;
-
-const Pt = me + 1500;
+const Pt = 3e3;
 
 const Ct = [
   [/^\/$/, "Welcome"],
@@ -244,14 +239,10 @@ export function RouteCover() {
         ),
       )}
       <div className={`sv-curtain-label${r ? " is-boot" : ""}`} ref={h}>
-        {r ? (
-          <Signature play speed={BOOT_SPEED} className="sv-curtain-sign" />
-        ) : (
-          <span className="name">
-            {o}
-            <span className="d">.</span>
-          </span>
-        )}
+        <span className="name">
+          {r ? "Welcome" : o}
+          <span className="d">.</span>
+        </span>
       </div>
     </div>
   );
